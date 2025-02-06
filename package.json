@@ -1,0 +1,11 @@
+{
+  "name": "social-gaurdian",
+  "version": "1.0.0",
+  "description": "This is a social media addiction helping website ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Himanshu Vinay Singh , Anand Gupta , Dheeraj Yadav , Saurav Gupta",
+  "license": "ISC"
+}
