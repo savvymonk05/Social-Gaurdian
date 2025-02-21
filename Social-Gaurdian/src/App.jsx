@@ -6,9 +6,9 @@ import Addictiontest from "./components/Addictiontest";
 import Banner from "./components/Banner";
 import Aboutus from "./components/Aboutus";
 import  Signuppage from "./components/Signuppage";
-import Common from "./components/Common";
 import Features from "./components/Features";
 import Footer  from "./components/Footer";
+import CommentSection from "./components/CommentSection";
 
 
 
@@ -31,7 +31,7 @@ function App() {
           />
         <Route path="/addictiontest" element={<Addictiontest />} />
         <Route path="/signup" element={<Signuppage />} />
-        <Route path="/common" element={<Common/>} />
+        <Route path="/common" element={<CommentSection/>} />
         </Routes>
       </BrowserRouter>
     </>
