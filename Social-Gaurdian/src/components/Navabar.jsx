@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../assets/logo.png";
-import Signupbutton from "./Signupbutton";
+import Loginbutton from "./Loginbutton";
 import { Link } from "react-router-dom";
 
 function Navabar() {
@@ -38,7 +38,7 @@ function Navabar() {
 
       {/* Sign Up Button (Aligned to the right) */}
       <div className="ml-auto">
-        <Signupbutton />
+        <Loginbutton />
       </div>
     </div>
   );

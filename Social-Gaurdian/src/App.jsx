@@ -5,7 +5,7 @@ import Navabar from "./components/Navabar";
 import Addictiontest from "./components/Addictiontest";
 import Banner from "./components/Banner";
 import Aboutus from "./components/Aboutus";
-import  Signuppage from "./components/Signuppage";
+import  Loginpage from "./components/Loginpage";
 import Features from "./components/Features";
 import Footer  from "./components/Footer";
 import CommentSection from "./components/CommentSection";
@@ -30,7 +30,7 @@ function App() {
             }
           />
         <Route path="/addictiontest" element={<Addictiontest />} />
-        <Route path="/signup" element={<Signuppage />} />
+        <Route path="/login" element={<Loginpage />} />
         <Route path="/common" element={<CommentSection/>} />
         </Routes>
       </BrowserRouter>
