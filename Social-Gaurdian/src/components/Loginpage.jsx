@@ -1,14 +1,112 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+
 
 const Loginpage = () => {
+  const navigate = useNavigate();
+
+  const [formData, setformData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  })
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
+
+  const onChange = (e) => {
+    setformData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  const login = async () => {
+    try {
+      const userres = await fetch('/api/v1/user/login', {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!userres.ok) {
+        throw new Error(`HTTP error! Status: ${userres.status}`);
+      }
+
+      const userData = await userres.json();
+      console.log("Response from backend:", userData);
+
+      if (userData) {
+        localStorage.setItem("auth-token", userData);
+        console.log("Stored Token:", localStorage.getItem("auth-token"));
+        navigate('/');
+      } else {
+        alert("Login unsuccessful: No token received");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
+    }
+  };
+
+
+
+  const signup = async () => {
+    // const { confirmPassword, ...userData } = formData;
+    const userres = await fetch('/api/v1/user/createuser', {
+      method: "POST",
+      headers: {
+        // Accept: "application/json",
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (!userres.ok) {
+      throw new Error(`HTTP error! Status: ${userres.status}`);
+    }
+    
+    let userData = await userres.json();
+    // console.log(userData);
+    if (userData) {
+      localStorage.setItem("auth-token", userData);
+      navigate('/');
+    }
+    else {
+      alert("unsuccessful");
+    }
+  }
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      login();
+    } else {
+      signup();
+    }
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form className="flex flex-col gap-3 bg-white p-8 rounded-2xl shadow-lg w-[450px] font-sans">
+      <form className="flex flex-col gap-3 bg-white p-8 rounded-2xl shadow-lg w-[450px] font-sans" onSubmit={handlesubmit}>
         <h1 className="text-2xl font-bold text-gray-800 text-center">
           {isLogin ? 'Login' : 'Sign Up'}
         </h1>
+
+
+        {/* Name section for signup page*/}
+        {!isLogin && (
+          <div className="flex flex-col">
+            <label className="text-gray-800 font-semibold">Name</label>
+            <input
+              className="ml-2 w-full outline-none bg-transparent border border-gray-300 rounded-xl p-3 focus-within:border-blue-500"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={onChange}
+              placeholder="Enter your Name"
+            />
+          </div>
+        )}
+
 
         {/* Email Input */}
         <div className="flex flex-col">
@@ -24,9 +122,12 @@ const Loginpage = () => {
             <path d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z" />
           </svg>
           <input
-            type="text"
-            placeholder="Enter your Email"
             className="ml-2 w-full outline-none bg-transparent"
+            value={formData.email}
+            onChange={onChange}
+            type="email"
+            name="email"
+            placeholder="Enter your Email"
           />
         </div>
 
@@ -45,14 +146,15 @@ const Loginpage = () => {
             <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0" />
           </svg>
           <input
+            className="ml-2 w-full outline-none bg-transparent"
+            value={formData.password} onChange={onChange} name="password"
             type="password"
             placeholder="Enter your Password"
-            className="ml-2 w-full outline-none bg-transparent"
           />
         </div>
 
         {/* Confirm Password Input (Only for Sign Up) */}
-        {!isLogin && (
+        {/* {!isLogin && (
           <div className="flex flex-col">
             <label className="text-gray-800 font-semibold">Confirm Password</label>
             <div className="flex items-center border border-gray-300 rounded-xl p-3 transition-all duration-200 focus-within:border-blue-500">
@@ -66,13 +168,14 @@ const Loginpage = () => {
                 <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0" />
               </svg>
               <input
-                type="password"
-                placeholder="Confirm your Password"
                 className="ml-2 w-full outline-none bg-transparent"
+                type="password"
+                value={formData.password} onChange={onChange} name="password"
+                placeholder="Confirm your Password"
               />
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Remember Me and Forgot Password (Only for Login) */}
         {isLogin && (
@@ -88,7 +191,9 @@ const Loginpage = () => {
         )}
 
         {/* Submit Button */}
-        <button className="mt-5 bg-gray-800 text-white font-medium rounded-xl py-3 cursor-pointer hover:bg-gray-900 transition-all duration-200">
+        <button className="mt-5 bg-gray-800 text-white font-medium rounded-xl py-3 cursor-pointer hover:bg-gray-900 transition-all duration-200"
+        //  onClick={isLogin? login:signup}
+        >
           {isLogin ? 'Sign In' : 'Sign Up'}
         </button>
 
