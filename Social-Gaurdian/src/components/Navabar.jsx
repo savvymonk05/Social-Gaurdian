@@ -28,8 +28,8 @@ function Navabar() {
         <Link className="hover:text-purple-700" to="/Common">
           Community
         </Link>
-        <Link className="hover:text-purple-700" to="">
-          Wellness
+        <Link className="hover:text-purple-700" to="/dashboard">
+          Dashboard
         </Link>
         <Link className="hover:text-purple-700" to="">
           Features
