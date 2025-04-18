@@ -9,6 +9,7 @@ import  Loginpage from "./components/Loginpage";
 import Features from "./components/Features";
 import Footer  from "./components/Footer";
 import CommentSection from "./components/CommentSection";
+import EmotionGraph from "./components/Emotiongraph";
 
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/addictiontest" element={<Addictiontest />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/common" element={<CommentSection/>} />
+        <Route path="/emotion" element={<EmotionGraph/>} />
         </Routes>
       </BrowserRouter>
     </>

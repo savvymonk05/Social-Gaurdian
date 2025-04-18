@@ -70,7 +70,10 @@ exports.login=async(req,res)=>{
      const authtoken=jwt.sign(data,JWT_SECRET);
 
     // res.json(user);
-    res.json(authtoken)
+    res.json({
+        authtoken,
+        name:user.name
+    });
 
     // res.status(200).json("successful");
     

@@ -35,7 +35,8 @@ const Loginpage = () => {
       console.log("Response from backend:", userData);
 
       if (userData) {
-        localStorage.setItem("auth-token", userData);
+        localStorage.setItem("auth-token", JSON.stringify(userData.authToken)); 
+        localStorage.setItem("name",userData.name)
         console.log("Stored Token:", localStorage.getItem("auth-token"));
         navigate('/');
       } else {
@@ -191,6 +192,7 @@ const Loginpage = () => {
         )}
 
         {/* Submit Button */}
+        
         <button className="mt-5 bg-gray-800 text-white font-medium rounded-xl py-3 cursor-pointer hover:bg-gray-900 transition-all duration-200"
         //  onClick={isLogin? login:signup}
         >

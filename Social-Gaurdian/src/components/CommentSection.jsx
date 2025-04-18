@@ -20,11 +20,12 @@ const CommunitySection = () => {
   };
 
   const addComment = (text, parentId = null) => {
+    const currentUser = localStorage.getItem("name") || "Guest";
     const newComment = {
       id: Date.now(),
       text,
-      author: loggedInUser.username,
-      avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${loggedInUser.username}`,
+      author: currentUser,
+      avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${currentUser}`,
       date: formatDate(new Date()),
       parentId,
       reactions: [],

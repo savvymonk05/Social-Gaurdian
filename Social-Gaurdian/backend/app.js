@@ -2,8 +2,10 @@
 const express=require('express');
 const morgan=require('morgan');
 const userroute=require('./routes/userroute');
+const journalroute=require('./routes/journalroute');
 
 const app=express();
+const cors=require('cors');
 
 //1- MIDDLEWARE
 
@@ -11,6 +13,7 @@ const app=express();
 app.use(morgan('dev'));
 
 app.use(express.json()) //its  middleware used while the post request for req
+app.use(cors());
 
 //custom middleware it runs in the order its is written
 app.use((req,res,next)=>{
@@ -37,6 +40,7 @@ app.get('/',(req,res)=>{
 
 //2- ROUTE HANDLER
 app.use('/api/v1/user',userroute);
+app.use('/api/v1/journal',journalroute);
 
 // 3- SERVER STATING
 module.exports= app;
