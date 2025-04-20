@@ -217,5 +217,4 @@ const Comment = ({ comment, comments, onDelete, onReport, onReact, onSubmitReply
     </div>
   );
 };
-
 export default CommunitySection;

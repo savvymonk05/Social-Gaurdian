@@ -10,6 +10,9 @@ import Features from "./components/Features";
 import Footer  from "./components/Footer";
 import CommentSection from "./components/CommentSection";
 import EmotionGraph from "./components/Emotiongraph";
+import DashBoard from "./components/Dashboard";
+import Video from "./components/VIdeopage"
+import Videoconf from "./components/Videoconf";
 
 
 
@@ -34,6 +37,9 @@ function App() {
         <Route path="/login" element={<Loginpage />} />
         <Route path="/common" element={<CommentSection/>} />
         <Route path="/emotion" element={<EmotionGraph/>} />
+        <Route path="/dashboard" element={<DashBoard/>} />
+        <Route path="/videocall/:id" element={<Videoconf />} />
+        <Route path="/videocall" element={<Video />} />
         </Routes>
       </BrowserRouter>
     </>

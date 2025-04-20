@@ -42,5 +42,4 @@ app.get('/',(req,res)=>{
 app.use('/api/v1/user',userroute);
 app.use('/api/v1/journal',journalroute);
 
-// 3- SERVER STATING
 module.exports= app;

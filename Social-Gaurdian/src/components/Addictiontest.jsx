@@ -67,7 +67,7 @@ function Addictiontest() {
       setResult({ error: "Error occurred while predicting" });
     }
   };
-  
+
 
   return (
     <div>
@@ -84,12 +84,37 @@ function Addictiontest() {
         onSubmit={handleSubmit}
       />
       {result && (
-        <div className="text-center mt-4">
-          <p>Status: {result.addiction_status === 1 ? "Addicted" : "Not Addicted"}</p>
-          <p>Probability: {result.probability ? (result.probability * 100).toFixed(2) + "% chance of addiction" : "N/A"}</p>
-          <p>Level: {result.addiction_level !== undefined ? ["Low", "Moderate", "High", "Severe"][result.addiction_level] : "Unknown"}</p>
+        <div className="flex justify-center mt-6">
+          <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-xl text-center border border-gray-200">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Test Result</h2>
+            <p className="text-lg text-gray-700 mb-2">
+              <span className="font-semibold">Status:</span>{" "}
+              <span className={result.addiction_status === 1 ? "text-red-500 font-bold" : "text-green-500 font-bold"}>
+                {result.addiction_status === 1 ? "Addicted" : "Not Addicted"}
+              </span>
+            </p>
+            <p className="text-lg text-gray-700 mb-2">
+              <span className="font-semibold">Probability:</span>{" "}
+              {result.probability ? (
+                <span className="text-blue-600 font-medium">
+                  {(result.probability * 100).toFixed(2)}% chance of addiction
+                </span>
+              ) : (
+                "N/A"
+              )}
+            </p>
+            <p className="text-lg text-gray-700">
+              <span className="font-semibold">Level:</span>{" "}
+              <span className="text-purple-600 font-medium">
+                {result.addiction_level !== undefined
+                  ? ["Low", "Moderate", "High", "Severe"][result.addiction_level]
+                  : "Unknown"}
+              </span>
+            </p>
+          </div>
         </div>
       )}
+
       <Footer />
     </div>
   );

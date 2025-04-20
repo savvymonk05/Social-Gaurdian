@@ -24,8 +24,11 @@ exports.createnewuser=async (req,res)=>{
      user= await User.create({
         name:req.body.name,
         email: req.body.email,
+        gender:req.body.gender,
+        phone:req.body.phone,
+        // age:req.body.age,
         password: secpass,
-    })
+    });
      const data={
         user:{
             id:user.id
@@ -87,8 +90,9 @@ exports.login=async(req,res)=>{
 exports.getuser=async(req,res)=>{
     try{
         console.log("Decoded user:", req.user);
-        const userid=req.user.id;
+        const userid=req.user;
         const user=await User.findById(userid).select("-password");
+        console.log(user);
         res.status(200).json(user)
     }catch(error){
         console.error(error.message);

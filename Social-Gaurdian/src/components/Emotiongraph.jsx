@@ -19,7 +19,7 @@ function EmotionGraph() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token': localStorage.getItem('auth-token')
+                    'auth-token': localStorage.getItem('authtoken')
                 }
             });
 
@@ -105,8 +105,9 @@ function EmotionGraph() {
     }, []);
 
     return (
-        <div className='container'>
-            <div className="cookieCard">
+        <div className="max-w-2xl mx-auto p-4 bg-gray-50 rounded-lg shadow-sm">
+            <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Journal YourSelf <span className="inline-block animate-bounce">✍️</span> </h1>
+            <div className="mb-6">
                 <textarea
                     id="message"
                     rows="4"
@@ -117,9 +118,9 @@ function EmotionGraph() {
                 ></textarea>
                 <div className='container d-flex justify-content-between'>
                     <button className="acceptButton text-white" onClick={generateGraph}>Analysis</button>
-                    <button className="acceptButton2 text-white" onClick={handleSubmit}>Submit</button>
+                    <button className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleSubmit}>Submit</button>
                 </div>
-                <MyChart  values={emotionsData?.emotions} dates={emotionsData?.dates} />
+                <MyChart values={emotionsData?.emotions} dates={emotionsData?.dates} />
             </div>
         </div>
     );

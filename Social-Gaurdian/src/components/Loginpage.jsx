@@ -8,8 +8,12 @@ const Loginpage = () => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
-    password: ""
-  })
+    password: "",
+    gender: "",
+    phone: "",
+    // age:"",
+  });
+
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
 
   const onChange = (e) => {
@@ -35,10 +39,10 @@ const Loginpage = () => {
       console.log("Response from backend:", userData);
 
       if (userData) {
-        localStorage.setItem("auth-token", JSON.stringify(userData.authToken)); 
-        localStorage.setItem("name",userData.name)
+        localStorage.setItem("auth-token", JSON.stringify(userData.authToken));
+        localStorage.setItem("name", userData.name)
         console.log("Stored Token:", localStorage.getItem("auth-token"));
-        navigate('/');
+        navigate('/dashboard');
       } else {
         alert("Login unsuccessful: No token received");
       }
@@ -64,7 +68,7 @@ const Loginpage = () => {
     if (!userres.ok) {
       throw new Error(`HTTP error! Status: ${userres.status}`);
     }
-    
+
     let userData = await userres.json();
     // console.log(userData);
     if (userData) {
@@ -154,6 +158,39 @@ const Loginpage = () => {
           />
         </div>
 
+        {/* Gender section for signup */}
+        {!isLogin && (
+          <div className="flex flex-col">
+            <label className="text-gray-800 font-semibold">Gender</label>
+            <select
+              className="ml-2 w-full outline-none bg-transparent border border-gray-300 rounded-xl p-3 focus-within:border-blue-500"
+              name="gender"
+              value={formData.gender || ""}
+              onChange={onChange}
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        )}
+
+        {/* Phone number section for signup */}
+        {!isLogin && (
+          <div className="flex flex-col">
+            <label className="text-gray-800 font-semibold">Phone Number</label>
+            <input
+              className="ml-2 w-full outline-none bg-transparent border border-gray-300 rounded-xl p-3 focus-within:border-blue-500"
+              type="text"
+              name="phone"
+              value={formData.phone || ""}
+              onChange={onChange}
+              placeholder="Enter your Phone Number"
+            />
+          </div>
+        )}
+
         {/* Confirm Password Input (Only for Sign Up) */}
         {/* {!isLogin && (
           <div className="flex flex-col">
@@ -192,7 +229,7 @@ const Loginpage = () => {
         )}
 
         {/* Submit Button */}
-        
+
         <button className="mt-5 bg-gray-800 text-white font-medium rounded-xl py-3 cursor-pointer hover:bg-gray-900 transition-all duration-200"
         //  onClick={isLogin? login:signup}
         >
@@ -244,5 +281,4 @@ const Loginpage = () => {
     </div>
   );
 };
-
 export default Loginpage;

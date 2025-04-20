@@ -22,8 +22,8 @@ function Navabar() {
         <Link className="hover:text-purple-700" to="/addictiontest">
           Addiction Test
         </Link>
-        <Link className="hover:text-purple-700" to="">
-          Blogs
+        <Link className="hover:text-purple-700" to="/videocall">
+          Video Conf....
         </Link>
         <Link className="hover:text-purple-700" to="/Common">
           Community
@@ -31,8 +31,8 @@ function Navabar() {
         <Link className="hover:text-purple-700" to="/emotion">
           Journaling
         </Link>
-        <Link className="hover:text-purple-700" to="">
-          Features
+        <Link className="hover:text-purple-700" to="/dashboard">
+          DashBoard
         </Link>
       </div>
 
